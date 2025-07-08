@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Calculator</title>
+<style>
+  body {background-color:purple; font-family: Arial, sans-serif; max-width: 400px; margin: 2rem auto; }
+  input, select, button { padding: 0.5rem; margin: 0.5rem 0; width: 100%; font-size: 1rem; }
+  #result { margin-top: 1rem; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h2>Simple Calculator</h2>
+
+<label for="num1">First Number:</label>
+<input type="number" id="num1" placeholder="Enter first number" />
+
+<label for="num2">Second Number:</label>
+<input type="number" id="num2" placeholder="Enter second number" />
+
+<label for="operation">Operation:</label>
+<select id="operation">
+  <option value="+">Add (+)</option>
+  <option value="-">Subtract (-)</option>
+  <option value="*">Multiply (*)</option>
+  <option value="/">Divide (/)</option>
+</select>
+
+<button id="calculateBtn">Calculate</button>
+<button id="clearBtn" style="background-color: #f44336; color: white;">Clear</button>
+
+<div id="result"></div>
+
+<script>
+  const num1Input = document.getElementById('num1');
+  const num2Input = document.getElementById('num2');
+  const operationSelect = document.getElementById('operation');
+  const calculateBtn = document.getElementById('calculateBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const resultDiv = document.getElementById('result');
+
+  calculateBtn.addEventListener('click', () => {
+    const num1 = parseFloat(num1Input.value);
+    const num2 = parseFloat(num2Input.value);
+    const operation = operationSelect.value;
+
+    if (isNaN(num1) || isNaN(num2)) {
+      resultDiv.textContent = 'Please enter valid numbers.';
+      return;
+    }
+
+    let result;
+
+    switch(operation) {
+      case '+':
+        result = num1 + num2;
+        break;
+
+      case '-':
+        result = num1 - num2;
+        break;
+
+      case '*':
+        result = num1 * num2;
+        break;
+
+      case '/':
+        if (num2 === 0) {
+          resultDiv.textContent = 'Error: Cannot divide by zero.';
+          return;
+        }
+        result = num1 / num2;
+        break;
+      
+      default:
+        resultDiv.textContent = 'Invalid operation.';
+        return;
+    }
+
+    resultDiv.textContent = `Result: ${num1} ${operation} ${num2} = ${result}`;
+  });
+
+  clearBtn.addEventListener('click', () => {
+    num1Input.value = '';
+    num2Input.value = '';
+    resultDiv.textContent = '';
+  });
+</script>
+
+</body>
+</html>
